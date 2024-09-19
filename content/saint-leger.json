@@ -1,0 +1,16 @@
+{
+  "map": {
+    "points": [
+      {
+        "gps": {
+          "longitude": 5.63798,
+          "latitude": 49.62268
+        },
+        "image_coordinate": {
+          "x": 471,
+          "y": 787
+        }
+      }
+    ]
+  }
+}
