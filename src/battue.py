@@ -1,21 +1,21 @@
 from geopy.point import Point
-import json
+import csv
 
 
 class Poste:
-    def __init__(self, poste_json):
-        self.number: str = poste_json["number"]  # it's not actually a number, it's a string, but it is usually a number, and sometimes a P or D
-        gps_point = poste_json["gps"]
-        self.gps_point: Point = Point(gps_point["latitude"], gps_point["longitude"])
+    def __init__(self, poste_csv):
+        self.number: str = poste_csv["name"]  # it's not actually a number, it's a string, but it is usually a number, and sometimes a P or D
+        self.gps_point: Point = Point(poste_csv["latitude"], poste_csv["longitude"])
 
 
 class Battue:
-    def __init__(self, battue_configuration_file: str):
-        file = open(battue_configuration_file, "r")
-        json_content = json.load(file)
-        file.close()
-        self.name: str = json_content["name"]
-        self.label: str = json_content["label"]
+    def __init__(self, battue_json: str):
+        self.name: str = battue_json["name"]
+        self.label: str = battue_json["label"]
         self.postes: list(Poste) = []
-        for poste_json in json_content["postes"]:
-            self.postes.append(Poste(poste_json))
+        postes_csv_file = open("../content/postes.csv", newline='')
+        postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
+        for row in postes_csv_reader:
+            if row["battue"] == self.name:
+                self.postes.append(Poste(row))
+        postes_csv_file.close()
