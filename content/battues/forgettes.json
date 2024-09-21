@@ -1,0 +1,13 @@
+{
+  "name": "Forgettes",
+  "label": "F",
+  "postes": [
+    {
+      "number": "1",
+      "gps": {
+        "longitude": 5.63798,
+        "latitude": 49.62268
+      }
+    }
+  ]
+}
