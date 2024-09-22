@@ -5,7 +5,7 @@ import json
 
 def main():
     map = Map("../content/saint-leger.png", "../content/saint-leger.json")
-    print(f"longitude_pixel_delta: {map.longitude_pixel_delta}")
+    print(f"x_pixel_delta: {map.x_pixel_delta}")
     file = open("../content/battues.json", "r")
     json_content = json.load(file)
     file.close()

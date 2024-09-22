@@ -1,11 +1,11 @@
-from geopy.point import Point
 import csv
+from util import LambertPoint
 
 
 class Poste:
     def __init__(self, poste_csv):
         self.number: str = poste_csv["name"]  # it's not actually a number, it's a string, but it is usually a number, and sometimes a P or D
-        self.gps_point: Point = Point(poste_csv["latitude"], poste_csv["longitude"])
+        self.lambert_point: LambertPoint = LambertPoint.from_gps(poste_csv["longitude"], poste_csv["latitude"])
 
 
 class Battue:
