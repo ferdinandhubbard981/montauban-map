@@ -9,9 +9,13 @@ def main():
     file = open("../content/battues.json", "r")
     json_content = json.load(file)
     file.close()
+    battues = []
     for battue_json in json_content:
         battue = Battue(battue_json)
+        battues.append(battue)
+        map.draw_postes(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
+    map.image.show()
 
 
 if __name__ == "__main__":
