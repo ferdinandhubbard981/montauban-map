@@ -14,6 +14,7 @@ def main():
         battue = Battue(battue_json)
         battues.append(battue)
         map.draw_postes(battue)
+        map.draw_line(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
     map.image.show()
 

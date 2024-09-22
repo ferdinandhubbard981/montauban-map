@@ -25,7 +25,16 @@ class Map:
             xcor, ycor = self.convert_lambert_to_pixel(poste.lambert_point)
             print(f"{poste.lambert_point.x}, {poste.lambert_point.y}")
             # print(f"{xcor}, {ycor}")
-            draw.text((xcor, ycor), poste.number, fill=(0, 0, 0, 255))  # here we draw
+            draw.text((xcor, ycor), poste.number, anchor="mm", fill=(0, 0, 0, 255))  # here we draw
+
+    def draw_line(self, battue: Battue):
+        draw = ImageDraw.Draw(self.image)  # created object for image
+        poste_pixel_coordinate_list: [(int, int)] = []
+        for poste in battue.postes:
+            poste_pixel_coordinate = (self.convert_lambert_to_pixel(poste.lambert_point))
+            poste_pixel_coordinate_list.append(poste_pixel_coordinate)
+
+        draw.polygon(poste_pixel_coordinate_list)
 
     def convert_lambert_to_pixel(self, lambert_point: LambertPoint):
         lambert_diff_y = lambert_point.y - self.top_left_pixel_lambert_point.y
