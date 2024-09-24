@@ -4,7 +4,7 @@ from battue import Battue
 from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds
 import numpy as np
 
-poste_distance_from_line = 13
+poste_distance_from_line = 5
 
 
 class ImageCoordinate:
@@ -27,7 +27,8 @@ class Map:
         line_vertices = self.get_line_vertices(battue)
         for poste in battue.postes:
             xcor, ycor = self.convert_lambert_to_pixel(poste.lambert_point)
-            point = self.adjust_poste_point((xcor, ycor), line_vertices)
+            point = self.adjust_poste_point((xcor, ycor), battue.parity, line_vertices)
+            # point = np.array([xcor, ycor])
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=(0, 0, 0, 255))  # here we draw
 
     def draw_line(self, battue: Battue):
@@ -60,7 +61,7 @@ class Map:
         end = line.get_point_along_line(linelen / 2)
         draw.line(np.array([start, end]).flatten().tolist(), width=2, fill=color)
 
-    def adjust_poste_point(self, poste_point: (int, int), line_vertices: [(int, int)]):  # adjust such that it is not too close to any of the edges of the battue, this takes care of corner postes
+    def adjust_poste_point(self, poste_point: (int, int), poste_parity: int, line_vertices: [(int, int)]):  # adjust such that it is not too close to any of the edges of the battue, this takes care of corner postes
 
         poste_point = np.array(poste_point)
         lines = get_lines_from_vertices(line_vertices)
@@ -79,7 +80,7 @@ class Map:
                 # self.draw_vecline(perpendicular_line, "green")
                 # self.draw_circle(intersection_point)
                 perpendicular_line = Line(perpendicular_line.d_vector, intersection_point)
-                poste_point = perpendicular_line.get_point_along_line(-poste_distance_from_line)
+                poste_point = perpendicular_line.get_point_along_line(poste_distance_from_line * poste_parity)
 
         return poste_point
 

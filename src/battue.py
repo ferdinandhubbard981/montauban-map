@@ -16,6 +16,7 @@ class Battue:
         self.name: str = battue_json["name"]
         self.label: str = battue_json["label"]
         self.postes: list(Poste) = []
+        self.parity = battue_json["parity"]
         postes_csv_file = open("../content/postes.csv", newline='')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:

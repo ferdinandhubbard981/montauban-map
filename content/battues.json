@@ -1,6 +1,17 @@
 [
   {
-    "name": "Potalles",
-    "label": "P"
+    "name": "POTALLES",
+    "label": "P",
+    "parity": -1
+  },
+  {
+    "name": "TROU DES NIVEAUX",
+    "label": "O",
+    "parity": 1
+  },
+  {
+    "name": "VALLON DES TROIS VERGES",
+    "label": "L",
+    "parity": 1
   }
 ]

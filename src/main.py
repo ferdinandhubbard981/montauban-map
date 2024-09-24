@@ -13,8 +13,8 @@ def main():
     for battue_json in json_content:
         battue = Battue(battue_json)
         battues.append(battue)
-        map.draw_postes(battue)
         map.draw_line(battue)
+        map.draw_postes(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
     map.image.show()
 
