@@ -7,6 +7,9 @@ class Poste:
         self.number: str = poste_csv["name"]  # it's not actually a number, it's a string, but it is usually a number, and sometimes a P or D
         self.lambert_point: LambertPoint = LambertPoint.from_gps(poste_csv["longitude"], poste_csv["latitude"])
 
+    def get_point_as_tuple(self):
+        return (self.lambert_point.x, self.lambert_point.y)
+
 
 class Battue:
     def __init__(self, battue_json: str):

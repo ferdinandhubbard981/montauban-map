@@ -1,7 +1,10 @@
 from PIL import ImageFont, ImageDraw, Image
 import json
 from battue import Battue
-from util import LambertPoint
+from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds
+import numpy as np
+
+poste_distance_from_line = 13
 
 
 class ImageCoordinate:
@@ -21,20 +24,16 @@ class Map:
     def draw_postes(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
         # font = ImageFont.truetype("Fontsah.ttf", 40)  # Defined font you can download any font and use it.
+        line_vertices = self.get_line_vertices(battue)
         for poste in battue.postes:
             xcor, ycor = self.convert_lambert_to_pixel(poste.lambert_point)
-            print(f"{poste.lambert_point.x}, {poste.lambert_point.y}")
-            # print(f"{xcor}, {ycor}")
-            draw.text((xcor, ycor), poste.number, anchor="mm", fill=(0, 0, 0, 255))  # here we draw
+            point = self.adjust_poste_point((xcor, ycor), line_vertices)
+            draw.text((point[0], point[1]), poste.number, anchor="mm", fill=(0, 0, 0, 255))  # here we draw
 
     def draw_line(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
-        poste_pixel_coordinate_list: [(int, int)] = []
-        for poste in battue.postes:
-            poste_pixel_coordinate = (self.convert_lambert_to_pixel(poste.lambert_point))
-            poste_pixel_coordinate_list.append(poste_pixel_coordinate)
-
-        draw.polygon(poste_pixel_coordinate_list)
+        poste_pixel_coordinate_list = self.get_line_vertices(battue)
+        draw.polygon(poste_pixel_coordinate_list, width=4, outline="red")
 
     def convert_lambert_to_pixel(self, lambert_point: LambertPoint):
         lambert_diff_y = lambert_point.y - self.top_left_pixel_lambert_point.y
@@ -42,6 +41,47 @@ class Map:
         xcor: int = lambert_diff_x / self.x_pixel_delta
         ycor: int = lambert_diff_y / self.y_pixel_delta
         return xcor, ycor
+
+    def get_line_vertices(self, battue: Battue):
+        poste_pixel_coordinate_list: [(int, int)] = []
+        for poste in battue.postes:
+            poste_pixel_coordinate = (self.convert_lambert_to_pixel(poste.lambert_point))
+            poste_pixel_coordinate_list.append(poste_pixel_coordinate)
+        return poste_pixel_coordinate_list
+
+    def draw_circle(self, point):
+        draw = ImageDraw.Draw(self.image)  # created object for image
+        draw.circle(point, 5, fill="green")
+
+    def draw_vecline(self, line: Line, color: str):
+        linelen = 1000
+        draw = ImageDraw.Draw(self.image)  # created object for image
+        start = line.get_point_along_line(-linelen / 2)
+        end = line.get_point_along_line(linelen / 2)
+        draw.line(np.array([start, end]).flatten().tolist(), width=2, fill=color)
+
+    def adjust_poste_point(self, poste_point: (int, int), line_vertices: [(int, int)]):  # adjust such that it is not too close to any of the edges of the battue, this takes care of corner postes
+
+        poste_point = np.array(poste_point)
+        lines = get_lines_from_vertices(line_vertices)
+        for line in lines:
+            npline = Line.from_tuple_points(line[0], line[1])
+            npline.normalise()
+            perpendicular_line = npline.get_perpendicular(poste_point)
+            perpendicular_line.normalise()
+            # get perpendicular line that passes through poste_point
+            intersection_point = Line.get_intersection_point(npline, perpendicular_line)
+            if not point_within_bounds(line, intersection_point):
+                continue
+            distance = np.sqrt(np.sum(np.square(intersection_point - poste_point)))
+            if distance < poste_distance_from_line:
+                # self.draw_vecline(npline, "blue")
+                # self.draw_vecline(perpendicular_line, "green")
+                # self.draw_circle(intersection_point)
+                perpendicular_line = Line(perpendicular_line.d_vector, intersection_point)
+                poste_point = perpendicular_line.get_point_along_line(-poste_distance_from_line)
+
+        return poste_point
 
 
 def parse_image_data(image_configuration_filename: str):
