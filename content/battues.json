@@ -12,6 +12,26 @@
   {
     "name": "VALLON DES TROIS VERGES",
     "label": "L",
+    "parity": -1
+  },
+  {
+    "name": "SUR LES GUEUSES",
+    "label": "N",
     "parity": 1
+  },
+  {
+    "name": "BOIS LEUGNON",
+    "label": "E",
+    "parity": 1
+  },
+  {
+    "name": "BOIS D'AHERE",
+    "label": "A",
+    "parity": -1
+  },
+  {
+    "name": "FORGETTES",
+    "label": "F",
+    "parity": -1
   }
 ]

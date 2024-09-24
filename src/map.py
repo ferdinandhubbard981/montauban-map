@@ -4,7 +4,7 @@ from battue import Battue
 from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds
 import numpy as np
 
-poste_distance_from_line = 5
+poste_distance_from_line = 10
 
 
 class ImageCoordinate:
