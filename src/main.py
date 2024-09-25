@@ -15,8 +15,10 @@ def main():
         battues.append(battue)
         map.draw_line(battue)
         map.draw_postes(battue)
+        map.draw_battue_name(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
     map.image.show()
+    map.image.save("../content/new_map.png")
 
 
 if __name__ == "__main__":

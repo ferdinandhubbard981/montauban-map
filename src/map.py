@@ -3,6 +3,7 @@ import json
 from battue import Battue
 from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds
 import numpy as np
+from shapely import centroid, Polygon
 
 poste_distance_from_line = 10
 
@@ -21,6 +22,12 @@ class Map:
         self.y_pixel_delta = (pixel_lambert_point_2[1].y - pixel_lambert_point_1[1].y) / (pixel_lambert_point_2[0].y - pixel_lambert_point_1[0].y)   # latitude changes when moving in the y direction
         self.top_left_pixel_lambert_point = LambertPoint(pixel_lambert_point_1[1].x - pixel_lambert_point_1[0].x * self.x_pixel_delta, pixel_lambert_point_1[1].y - pixel_lambert_point_1[0].y * self.y_pixel_delta)
 
+    def draw_battue_name(self, battue: Battue):
+        draw = ImageDraw.Draw(self.image)  # created object for image
+        anchor_point = centroid(Polygon(self.get_line_vertices(battue)))
+        draw.text((anchor_point.x, anchor_point.y), battue.name, anchor="mm", fill=(0, 0, 0, 255))
+        # draw.textbbox((anchor_point.x, anchor_point.y), battue.name, anchor="mm", stroke_width=20, font_size=20)
+
     def draw_postes(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
         # font = ImageFont.truetype("Fontsah.ttf", 40)  # Defined font you can download any font and use it.
@@ -29,7 +36,7 @@ class Map:
             xcor, ycor = self.convert_lambert_to_pixel(poste.lambert_point)
             point = self.adjust_poste_point((xcor, ycor), battue.parity, line_vertices)
             # point = np.array([xcor, ycor])
-            draw.text((point[0], point[1]), poste.number, anchor="mm", fill=(0, 0, 0, 255))  # here we draw
+            draw.text((point[0], point[1]), poste.number, anchor="mm", fill=(0, 0, 0, 255))
 
     def draw_line(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
