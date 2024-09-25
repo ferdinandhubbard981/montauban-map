@@ -35,9 +35,9 @@ class Map:
         # font = ImageFont.truetype("Fontsah.ttf", 40)  # Defined font you can download any font and use it.
         line_vertices = self.get_line_vertices(battue)
         for poste in battue.postes:
-            point = self.convert_lambert_to_pixel(poste.lambert_point)
+            point = self.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset
             point = self.adjust_poste_point(point, battue.parity, line_vertices)
-            point += poste.number_offset + poste.line_offset
+            point += poste.number_offset
             # point = np.array([xcor, ycor])
             fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 15)
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=battue.colour, font=fnt)
