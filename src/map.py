@@ -26,7 +26,8 @@ class Map:
     def draw_battue_name(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
         anchor_point = centroid(Polygon(self.get_line_vertices(battue)))
-        draw.text((anchor_point.x, anchor_point.y), battue.name, anchor="mm", fill=(0, 0, 0, 255))
+        fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 30)
+        draw.text((anchor_point.x, anchor_point.y), battue.name, font=fnt, fill=battue.colour, anchor="mm")
         # draw.textbbox((anchor_point.x, anchor_point.y), battue.name, anchor="mm", stroke_width=20, font_size=20)
 
     def draw_postes(self, battue: Battue):
@@ -37,17 +38,18 @@ class Map:
             xcor, ycor = self.convert_lambert_to_pixel(poste.lambert_point)
             point = self.adjust_poste_point((xcor, ycor), battue.parity, line_vertices)
             # point = np.array([xcor, ycor])
-            draw.text((point[0], point[1]), poste.number, anchor="mm", fill=(0, 0, 0, 255))
+            fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 15)
+            draw.text((point[0], point[1]), poste.number, anchor="mm", fill=battue.colour, font=fnt)
 
     def draw_line(self, battue: Battue):
         draw = aggdraw.Draw(self.image)  # created object for image
         draw.setantialias(True)
-        pen = aggdraw.Pen("red", 3.0)
+        pen = aggdraw.Pen(battue.colour, 3.0)
         poste_pixel_coordinate_list = self.get_line_vertices(battue, dup_first=True)
         poste_pixel_coordinate_list = flatten_tuple_array(poste_pixel_coordinate_list)
         draw.line(poste_pixel_coordinate_list, pen)
         draw.flush()
-        # draw.polygon(poste_pixel_coordinate_list, width=4, outline="red")
+        # draw.polygon(poste_pixel_coordinate_list, width=4, outline=battue.colour)
 
     def convert_lambert_to_pixel(self, lambert_point: LambertPoint):
         lambert_diff_y = lambert_point.y - self.top_left_pixel_lambert_point.y
