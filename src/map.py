@@ -1,7 +1,8 @@
 from PIL import ImageFont, ImageDraw, Image
+import aggdraw
 import json
 from battue import Battue
-from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds
+from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array
 import numpy as np
 from shapely import centroid, Polygon
 
@@ -39,9 +40,14 @@ class Map:
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=(0, 0, 0, 255))
 
     def draw_line(self, battue: Battue):
-        draw = ImageDraw.Draw(self.image)  # created object for image
-        poste_pixel_coordinate_list = self.get_line_vertices(battue)
-        draw.polygon(poste_pixel_coordinate_list, width=4, outline="red")
+        draw = aggdraw.Draw(self.image)  # created object for image
+        draw.setantialias(True)
+        pen = aggdraw.Pen("red", 3.0)
+        poste_pixel_coordinate_list = self.get_line_vertices(battue, dup_first=True)
+        poste_pixel_coordinate_list = flatten_tuple_array(poste_pixel_coordinate_list)
+        draw.line(poste_pixel_coordinate_list, pen)
+        draw.flush()
+        # draw.polygon(poste_pixel_coordinate_list, width=4, outline="red")
 
     def convert_lambert_to_pixel(self, lambert_point: LambertPoint):
         lambert_diff_y = lambert_point.y - self.top_left_pixel_lambert_point.y
@@ -50,11 +56,13 @@ class Map:
         ycor: int = lambert_diff_y / self.y_pixel_delta
         return xcor, ycor
 
-    def get_line_vertices(self, battue: Battue):
+    def get_line_vertices(self, battue: Battue, dup_first=False):
         poste_pixel_coordinate_list: [(int, int)] = []
         for poste in battue.postes:
             poste_pixel_coordinate = (self.convert_lambert_to_pixel(poste.lambert_point))
             poste_pixel_coordinate_list.append(poste_pixel_coordinate)
+        if dup_first:
+            poste_pixel_coordinate_list.append(poste_pixel_coordinate_list[0])
         return poste_pixel_coordinate_list
 
     def draw_circle(self, point):

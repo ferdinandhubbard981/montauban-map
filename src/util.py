@@ -69,3 +69,11 @@ def point_within_bounds(bounds: ((float, float), (float, float)), intersection_p
     if intersection_point[0] < x_values[0] or intersection_point[0] > x_values[1] or intersection_point[1] < y_values[0] or intersection_point[1] > y_values[1]:
         return False
     return True
+
+
+def flatten_tuple_array(tuple_array):
+    out = []
+    for i in tuple_array:
+        out.append(i[0])
+        out.append(i[1])
+    return out
