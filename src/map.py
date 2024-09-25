@@ -35,8 +35,9 @@ class Map:
         # font = ImageFont.truetype("Fontsah.ttf", 40)  # Defined font you can download any font and use it.
         line_vertices = self.get_line_vertices(battue)
         for poste in battue.postes:
-            xcor, ycor = self.convert_lambert_to_pixel(poste.lambert_point)
-            point = self.adjust_poste_point((xcor, ycor), battue.parity, line_vertices)
+            point = self.convert_lambert_to_pixel(poste.lambert_point)
+            point = self.adjust_poste_point(point, battue.parity, line_vertices)
+            point += poste.number_offset + poste.line_offset
             # point = np.array([xcor, ycor])
             fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 15)
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=battue.colour, font=fnt)
@@ -56,12 +57,13 @@ class Map:
         lambert_diff_x = lambert_point.x - self.top_left_pixel_lambert_point.x
         xcor: int = lambert_diff_x / self.x_pixel_delta
         ycor: int = lambert_diff_y / self.y_pixel_delta
-        return xcor, ycor
+        return np.array([xcor, ycor])
 
     def get_line_vertices(self, battue: Battue, dup_first=False):
         poste_pixel_coordinate_list: [(int, int)] = []
         for poste in battue.postes:
-            poste_pixel_coordinate = (self.convert_lambert_to_pixel(poste.lambert_point))
+            poste_pixel_coordinate = self.convert_lambert_to_pixel(poste.lambert_point)
+            poste_pixel_coordinate += poste.line_offset
             poste_pixel_coordinate_list.append(poste_pixel_coordinate)
         if dup_first:
             poste_pixel_coordinate_list.append(poste_pixel_coordinate_list[0])
@@ -78,9 +80,8 @@ class Map:
         end = line.get_point_along_line(linelen / 2)
         draw.line(np.array([start, end]).flatten().tolist(), width=2, fill=color)
 
-    def adjust_poste_point(self, poste_point: (int, int), poste_parity: int, line_vertices: [(int, int)]):  # adjust such that it is not too close to any of the edges of the battue, this takes care of corner postes
+    def adjust_poste_point(self, poste_point: np.array, poste_parity: int, line_vertices: [(int, int)]):  # adjust such that it is not too close to any of the edges of the battue, this takes care of corner postes
 
-        poste_point = np.array(poste_point)
         lines = get_lines_from_vertices(line_vertices)
         for line in lines:
             npline = Line.from_tuple_points(line[0], line[1])
