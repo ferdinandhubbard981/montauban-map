@@ -77,3 +77,11 @@ def flatten_tuple_array(tuple_array):
         out.append(i[0])
         out.append(i[1])
     return out
+
+
+def draw_text_in_a_box(draw, text, colour, anchor_point, fnt, y_offset, padding):
+    anchor_point = anchor_point + np.array([0, y_offset])
+    left, top, right, bottom = draw.textbbox((anchor_point[0], anchor_point[1]), text, font=fnt, anchor="mm", align="center")
+    text_box = [(left - padding, top - padding), (right + padding, bottom + padding)]
+    draw.rectangle(text_box, fill="white", outline="black", width=2)
+    draw.text((anchor_point[0], anchor_point[1]), text, font=fnt, fill=colour, anchor="mm", align="center")

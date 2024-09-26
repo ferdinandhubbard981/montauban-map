@@ -2,7 +2,7 @@ from PIL import ImageFont, ImageDraw, Image
 import aggdraw
 import json
 from battue import Battue
-from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array
+from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box
 import numpy as np
 from shapely import centroid, Polygon
 
@@ -26,9 +26,14 @@ class Map:
     def draw_battue_name(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
         anchor_point = centroid(Polygon(self.get_line_vertices(battue)))
+        anchor_point = np.array([anchor_point.x, anchor_point.y])
         fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 30)
-        draw.text((anchor_point.x, anchor_point.y), battue.name, font=fnt, fill=battue.colour, anchor="mm")
-        # draw.textbbox((anchor_point.x, anchor_point.y), battue.name, anchor="mm", stroke_width=20, font_size=20)
+        y_offset = 20
+        padding = 5
+
+        draw_text_in_a_box(draw, battue.name, battue.colour, anchor_point, fnt, y_offset, padding)
+
+        draw_text_in_a_box(draw, battue.label, battue.colour, anchor_point, fnt, -y_offset, padding)
 
     def draw_postes(self, battue: Battue):
         draw = ImageDraw.Draw(self.image)  # created object for image
