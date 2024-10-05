@@ -118,3 +118,21 @@ def parse_image_data(image_configuration_filename: str):
     point2_json = image_conf["map"]["points"][1]
     pixel_lambert_point_2: (ImageCoordinate, LambertPoint) = (ImageCoordinate(point2_json["image_coordinate"]["x"], point2_json["image_coordinate"]["y"]), LambertPoint.from_gps(point2_json["gps"]["longitude"], point2_json["gps"]["latitude"]))
     return pixel_lambert_point_1, pixel_lambert_point_2
+
+
+def generate_map():
+    map = Map("../content/saint-leger.png", "../content/saint-leger.json")
+    print(f"x_pixel_delta: {map.x_pixel_delta}")
+    print(f"y_pixel_delta: {map.y_pixel_delta}")
+    file = open("../content/battues.json", "r")
+    json_content = json.load(file)
+    file.close()
+    battues = []
+    for battue_json in json_content:
+        battue = Battue(battue_json)
+        battues.append(battue)
+        map.draw_line(battue)
+        map.draw_postes(battue)
+        map.draw_battue_name(battue)
+        print(f"{battue.name} postes len: {len(battue.postes)}")
+    map.image.save("../content/new_map.png")
