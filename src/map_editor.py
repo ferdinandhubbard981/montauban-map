@@ -8,7 +8,7 @@ selected_poste = None
 
 
 def load_map():
-    map_data, battues = generate_map()
+    map_data, battues = generate_map(draw_offsets=True)
     img = cv2.imread('../content/new_map.png')
     cv2.imshow('window', img)
     params = (map_data, battues)

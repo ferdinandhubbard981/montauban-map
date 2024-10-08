@@ -57,6 +57,20 @@ class Map:
         draw.flush()
         # draw.polygon(poste_pixel_coordinate_list, width=4, outline=battue.colour)
 
+    def draw_line_offsets(self, battue: Battue):
+        draw = aggdraw.Draw(self.image)  # created object for image
+        draw.setantialias(True)
+        pen = aggdraw.Pen("purple", 2.0)
+        for poste in battue.postes:
+            if np.sum(np.abs(poste.line_offset)) == 0:
+                continue
+            point1 = self.convert_lambert_to_pixel(poste.lambert_point)
+            point2 = point1 + poste.line_offset
+            line_coords = np.array([point1, point2])
+            line_coords = line_coords.flatten().tolist()
+            draw.line(line_coords, pen)
+        draw.flush()
+
     def convert_lambert_to_pixel(self, lambert_point: LambertPoint):
         lambert_diff_y = lambert_point.y - self.top_left_pixel_lambert_point.y
         lambert_diff_x = lambert_point.x - self.top_left_pixel_lambert_point.x
@@ -119,7 +133,7 @@ def parse_image_data(image_configuration_filename: str):
     return pixel_lambert_point_1, pixel_lambert_point_2
 
 
-def generate_map():
+def generate_map(draw_offsets=False):
     map = Map(map_base_path, "../content/saint-leger.json")
     print(f"x_pixel_delta: {map.x_pixel_delta}")
     print(f"y_pixel_delta: {map.y_pixel_delta}")
@@ -133,6 +147,8 @@ def generate_map():
         map.draw_line(battue)
         map.draw_postes(battue)
         map.draw_battue_name(battue)
+        if draw_offsets:
+            map.draw_line_offsets(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
     map.image.save(map_output_path)
     return map, battues
