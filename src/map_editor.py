@@ -37,6 +37,7 @@ def click_event(event, x, y, flags, params):
         if flags & cv2.EVENT_FLAG_SHIFTKEY and selected_poste is not None:
             print("updating csv...")
             selected_poste_pixel = map_data.convert_lambert_to_pixel(selected_poste.lambert_point)
+            selected_poste_pixel += selected_poste.line_offset
             # calculate pixel offset and apply to current poste in csv
             pixel_offset = np.array([x, y]) - selected_poste_pixel
             pixel_offset = np.rint(pixel_offset).astype(np.int32)
