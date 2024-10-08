@@ -3,7 +3,7 @@ from map_editor import run_interactive_map
 
 
 def main():
-    generate_map()
+    # generate_map()
     run_interactive_map()
 
 

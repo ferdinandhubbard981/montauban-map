@@ -2,7 +2,7 @@ from PIL import ImageFont, ImageDraw, Image
 import aggdraw
 import json
 from battue import Battue
-from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box
+from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box, map_base_path, map_output_path
 import numpy as np
 from shapely import centroid, Polygon
 
@@ -121,7 +121,7 @@ def parse_image_data(image_configuration_filename: str):
 
 
 def generate_map():
-    map = Map("../content/saint-leger.png", "../content/saint-leger.json")
+    map = Map(map_base_path, "../content/saint-leger.json")
     print(f"x_pixel_delta: {map.x_pixel_delta}")
     print(f"y_pixel_delta: {map.y_pixel_delta}")
     file = open("../content/battues.json", "r")
@@ -135,4 +135,5 @@ def generate_map():
         map.draw_postes(battue)
         map.draw_battue_name(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
-    map.image.save("../content/new_map.png")
+    map.image.save(map_output_path)
+    return map, battues

@@ -1,6 +1,10 @@
 from pyproj import Transformer
 import numpy as np
 
+map_base_path = "../content/saint-leger.png"
+map_output_path = "../content/new_map.png"
+postes_csv_path = "../content/postes.csv"
+
 
 class LambertPoint:
     def __init__(self, x, y):
@@ -85,3 +89,18 @@ def draw_text_in_a_box(draw, text, colour, anchor_point, fnt, y_offset, padding)
     text_box = [(left - padding, top - padding), (right + padding, bottom + padding)]
     draw.rectangle(text_box, fill="white", outline="black", width=2)
     draw.text((anchor_point[0], anchor_point[1]), text, font=fnt, fill=colour, anchor="mm", align="center")
+
+
+def pixel_distance(point1, point2):
+    temp = point1 - point2
+    distance = np.sqrt(np.dot(temp.T, temp))
+    return distance
+
+
+def parse_optional_int_to_str(string_int: str):
+    if string_int == '':
+        return 0
+    else:
+        out = int(string_int)
+        print(f"out: {out}")
+        return out
