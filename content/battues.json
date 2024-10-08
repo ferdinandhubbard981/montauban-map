@@ -15,30 +15,30 @@
     "name": "VALLON DES TROIS VERGES",
     "label": "L",
     "parity": -1,
-    "colour": "green"
+    "colour": "blue"
   },
   {
     "name": "SUR LES GUEUSES",
     "label": "N",
     "parity": 1,
-    "colour": "orange"
+    "colour": "red"
   },
   {
     "name": "FORGETTES",
     "label": "T",
     "parity": 1,
-    "colour": "brown"
+    "colour": "blue"
   },
   {
     "name": "BOIS LEUGNON",
     "label": "E",
     "parity": -1,
-    "colour": "blue"
+    "colour": "red"
   },
   {
     "name": "BOIS D'AHERE",
     "label": "F",
     "parity": -1,
-    "colour": "red"
+    "colour": "blue"
   }
 ]
