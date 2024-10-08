@@ -20,9 +20,10 @@ def run_interactive_map():
     cv2.resizeWindow("window", 1920, 1080)
     load_map()
     while 1:
-        if cv2.waitKey(0) == 27:
+        key = cv2.waitKey(0)
+        if key == 27:
             break
-        if cv2.waitKey(0) == ord('r'):
+        if key == ord('r'):
             load_map()
 
     cv2.destroyAllWindows()
@@ -64,7 +65,7 @@ def click_event(event, x, y, flags, params):
             nearest_poste_distance = 0
             for battue in battues:
                 for poste in battue.postes:
-                    distance = pixel_distance(map_data.convert_lambert_to_pixel(poste.lambert_point), np.array([x, y]))
+                    distance = pixel_distance(map_data.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset, np.array([x, y]))
                     if nearest_poste is None or distance < nearest_poste_distance:
                         nearest_poste = poste
                         nearest_poste_distance = distance

@@ -67,8 +67,7 @@ class Map:
     def get_line_vertices(self, battue: Battue, dup_first=False):
         poste_pixel_coordinate_list: [(int, int)] = []
         for poste in battue.postes:
-            poste_pixel_coordinate = self.convert_lambert_to_pixel(poste.lambert_point)
-            poste_pixel_coordinate += poste.line_offset
+            poste_pixel_coordinate = self.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset
             poste_pixel_coordinate_list.append(poste_pixel_coordinate)
         if dup_first:
             poste_pixel_coordinate_list.append(poste_pixel_coordinate_list[0])
