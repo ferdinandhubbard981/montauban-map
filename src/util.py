@@ -1,11 +1,6 @@
 from pyproj import Transformer
 import numpy as np
 
-map_base_path = "../content/saint-leger.png"
-map_output_path = "../content/new_map.png"
-postes_csv_path = "../content/postes.csv"
-
-
 class LambertPoint:
     def __init__(self, x, y):
         self.x = x
@@ -104,3 +99,4 @@ def parse_optional_int_to_str(string_int: str):
         out = int(string_int)
         print(f"out: {out}")
         return out
+

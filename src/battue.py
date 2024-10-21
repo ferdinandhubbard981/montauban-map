@@ -1,5 +1,5 @@
 import csv
-from util import LambertPoint, postes_csv_path
+from util import LambertPoint
 import numpy as np
 
 
@@ -28,13 +28,13 @@ class Poste:
 
 
 class Battue:
-    def __init__(self, battue_json: str):
+    def __init__(self, battue_json: str, paths):
         self.name: str = battue_json["name"]
         self.label: str = battue_json["label"]
         self.postes: list(Poste) = []
         self.parity = battue_json["parity"]
         self.colour = battue_json["colour"]
-        postes_csv_file = open(postes_csv_path, newline='')
+        postes_csv_file = open(paths["postes_csv"], newline='')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:
             if row["battue"] == self.name:

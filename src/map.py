@@ -2,7 +2,7 @@ from PIL import ImageFont, ImageDraw, Image
 import aggdraw
 import json
 from battue import Battue
-from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box, map_base_path, map_output_path
+from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box
 import numpy as np
 from shapely import centroid, Polygon
 
@@ -23,11 +23,11 @@ class Map:
         self.y_pixel_delta = (pixel_lambert_point_2[1].y - pixel_lambert_point_1[1].y) / (pixel_lambert_point_2[0].y - pixel_lambert_point_1[0].y)   # latitude changes when moving in the y direction
         self.top_left_pixel_lambert_point = LambertPoint(pixel_lambert_point_1[1].x - pixel_lambert_point_1[0].x * self.x_pixel_delta, pixel_lambert_point_1[1].y - pixel_lambert_point_1[0].y * self.y_pixel_delta)
 
-    def draw_battue_name(self, battue: Battue):
+    def draw_battue_name(self, battue: Battue, paths):
         draw = ImageDraw.Draw(self.image)  # created object for image
         anchor_point = centroid(Polygon(self.get_line_vertices(battue)))
         anchor_point = np.array([anchor_point.x, anchor_point.y])
-        fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 30)
+        fnt = ImageFont.truetype(paths["font"], 30)
         y_offset = 20
         padding = 5
 
@@ -35,7 +35,7 @@ class Map:
 
         draw_text_in_a_box(draw, battue.label, battue.colour, anchor_point, fnt, -y_offset, padding)
 
-    def draw_postes(self, battue: Battue):
+    def draw_postes(self, battue: Battue, paths):
         draw = ImageDraw.Draw(self.image)  # created object for image
         # font = ImageFont.truetype("Fontsah.ttf", 40)  # Defined font you can download any font and use it.
         line_vertices = self.get_line_vertices(battue)
@@ -44,7 +44,7 @@ class Map:
             point = self.adjust_poste_point(point, battue.parity, line_vertices)
             point += poste.number_offset
             # point = np.array([xcor, ycor])
-            fnt = ImageFont.truetype("../content/BebasNeue-Regular.ttf", 15)
+            fnt = ImageFont.truetype(paths["font"], 15)
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=battue.colour, font=fnt)
 
     def draw_line(self, battue: Battue):
@@ -133,22 +133,22 @@ def parse_image_data(image_configuration_filename: str):
     return pixel_lambert_point_1, pixel_lambert_point_2
 
 
-def generate_map(draw_offsets=False):
-    map = Map(map_base_path, "../content/saint-leger.json")
+def generate_map(paths, draw_offsets=False):
+    map = Map(paths["map_image"], paths["gps_file"])
     print(f"x_pixel_delta: {map.x_pixel_delta}")
     print(f"y_pixel_delta: {map.y_pixel_delta}")
-    file = open("../content/battues.json", "r")
+    file = open(paths["battues"], "r")
     json_content = json.load(file)
     file.close()
     battues = []
     for battue_json in json_content:
-        battue = Battue(battue_json)
+        battue = Battue(battue_json, paths)
         battues.append(battue)
         map.draw_line(battue)
-        map.draw_postes(battue)
-        map.draw_battue_name(battue)
+        map.draw_postes(battue, paths)
+        map.draw_battue_name(battue, paths)
         if draw_offsets:
             map.draw_line_offsets(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")
-    map.image.save(map_output_path)
+    map.image.save(paths["map_output"])
     return map, battues
