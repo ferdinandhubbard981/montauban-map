@@ -1,44 +1,8 @@
 [
   {
-    "name": "POTALLES",
+    "name": "BEAU JARDIN",
     "label": "P",
-    "parity": -1,
-    "colour": "red"
-  },
-  {
-    "name": "TROU DES NIVEAUX",
-    "label": "O",
-    "parity": 1,
-    "colour": "blue"
-  },
-  {
-    "name": "VALLON DES TROIS VERGES",
-    "label": "L",
-    "parity": -1,
-    "colour": "blue"
-  },
-  {
-    "name": "SUR LES GUEUSES",
-    "label": "N",
     "parity": 1,
     "colour": "red"
-  },
-  {
-    "name": "FORGETTES",
-    "label": "T",
-    "parity": 1,
-    "colour": "blue"
-  },
-  {
-    "name": "BOIS LEUGNON",
-    "label": "E",
-    "parity": -1,
-    "colour": "red"
-  },
-  {
-    "name": "BOIS D'AHERE",
-    "label": "F",
-    "parity": -1,
-    "colour": "blue"
   }
 ]
