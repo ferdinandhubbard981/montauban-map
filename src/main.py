@@ -10,10 +10,10 @@ def main():
     args = parser.parse_args()
     paths = {}
     paths["font"] = "BebasNeue-Regular.ttf"
-    paths["map_image"] = "saint-leger.png"
+    paths["map_image"] = "base_map.png"
     paths["map_output"] = "new_map.png"
     paths["postes_csv"] = "postes.csv"
-    paths["gps_file"] = "saint-leger.json"
+    paths["gps_file"] = "gps.json"
     paths["battues"] = "battues.json"
     for key, val in paths.items():
         paths[key] = os.path.join(args.dir, val)
