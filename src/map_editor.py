@@ -36,8 +36,11 @@ def click_event(event, x, y, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
         if flags & cv2.EVENT_FLAG_SHIFTKEY:
             move_poste(map_data, x, y, paths)
+        elif flags & cv2.EVENT_FLAG_ALTKEY:
+            create_poste(map_data, x, y, paths)
         else:
             update_selected_poste(battues, map_data, x, y)
+
 
 def update_selected_poste(battues, map_data, x, y):
     global selected_poste
@@ -53,12 +56,12 @@ def update_selected_poste(battues, map_data, x, y):
     print(f"selected poste: {selected_poste.battue_name} {selected_poste.number}")
     # cv2.imshow('image', img)
 
+
 def move_poste(map_data, x, y, paths):
     global selected_poste
     if selected_poste is None:
         print("attempting to move poste without having selected one")
         return
-    print("updating csv...")
     selected_poste_pixel = map_data.convert_lambert_to_pixel(selected_poste.lambert_point)
     selected_poste_pixel += selected_poste.line_offset
     # calculate pixel offset and apply to current poste in csv
@@ -82,3 +85,15 @@ def move_poste(map_data, x, y, paths):
 
     # modify offsets
     selected_poste = None
+
+
+def create_poste(map_data, x, y, paths):
+    # find entry for that poste
+    print("updating csv...")
+    lambert_point = map_data.convert_pixel_to_lambert(x, y)
+    longitude, latitude = lambert_point.to_gps()
+    row = ["new", "?", latitude, longitude]
+    with open(paths["postes_csv"], 'a') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';')
+        writer.writerow(row)
+    print(f"created poste at ({x}, {y})")

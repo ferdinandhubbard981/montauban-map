@@ -1,6 +1,7 @@
 from pyproj import Transformer
 import numpy as np
 
+
 class LambertPoint:
     def __init__(self, x, y):
         self.x = x
@@ -11,6 +12,11 @@ class LambertPoint:
         transformer = Transformer.from_crs("EPSG:4326", "EPSG:31370", always_xy=True)
         x, y = transformer.transform(longitude, latitude)
         return LambertPoint(x, y)
+
+    def to_gps(self):
+        transformer = Transformer.from_crs("EPSG:31370", "EPSG:4326", always_xy=True)
+        longitude, latitude = transformer.transform(self.x, self.y)
+        return longitude, latitude
 
 
 def get_lines_from_vertices(vertices: [(int, int)]):
@@ -99,4 +105,3 @@ def parse_optional_int_to_str(string_int: str):
         out = int(string_int)
         print(f"out: {out}")
         return out
-

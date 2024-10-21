@@ -78,6 +78,11 @@ class Map:
         ycor: int = lambert_diff_y / self.y_pixel_delta
         return np.array([xcor, ycor])
 
+    def convert_pixel_to_lambert(self, x, y):
+        lambert_x = self.top_left_pixel_lambert_point.x + x * self.x_pixel_delta
+        lambert_y = self.top_left_pixel_lambert_point.y + y * self.y_pixel_delta
+        return LambertPoint(lambert_x, lambert_y)
+
     def get_line_vertices(self, battue: Battue, dup_first=False):
         poste_pixel_coordinate_list: [(int, int)] = []
         for poste in battue.postes:
