@@ -7,18 +7,18 @@ import csv
 selected_poste = None
 
 
-def load_map(paths):
-    map_data, battues = generate_map(paths, draw_offsets=True)
+def load_map(paths, draw_offsets):
+    map_data, battues = generate_map(paths, draw_offsets=draw_offsets)
     img = cv2.imread(paths["map_output"])
     cv2.imshow('window', img)
     params = (map_data, battues, paths)
     cv2.setMouseCallback('window', click_event, params)
 
 
-def run_interactive_map(paths):
+def run_interactive_map(paths, draw_offsets=False):
     cv2.namedWindow("window", cv2.WINDOW_NORMAL)
     cv2.resizeWindow("window", 1920, 1080)
-    load_map(paths)
+    load_map(paths, draw_offsets)
     while 1:
         key = cv2.waitKey(0)
         if key == 27:

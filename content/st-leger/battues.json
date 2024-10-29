@@ -3,42 +3,49 @@
     "name": "POTALLES",
     "label": "P",
     "parity": -1,
-    "colour": "red"
+    "colour": "red",
+    "colour_secondary": "white"
   },
   {
     "name": "TROU DES NIVEAUX",
     "label": "O",
     "parity": 1,
-    "colour": "blue"
+    "colour": "blue",
+    "colour_secondary": "yellow"
   },
   {
     "name": "VALLON DES TROIS VERGES",
     "label": "L",
     "parity": -1,
-    "colour": "blue"
+    "colour": "blue",
+    "colour_secondary": "yellow"
   },
   {
     "name": "SUR LES GUEUSES",
     "label": "N",
     "parity": 1,
-    "colour": "red"
+    "colour": "red",
+    "colour_secondary": "white"
   },
   {
     "name": "FORGETTES",
     "label": "T",
     "parity": 1,
-    "colour": "blue"
+    "colour": "blue",
+    "colour_secondary": "yellow"
   },
   {
     "name": "BOIS LEUGNON",
     "label": "E",
     "parity": -1,
-    "colour": "red"
+    "colour": "red",
+    "colour_secondary": "white"
   },
   {
     "name": "BOIS D'AHERE",
     "label": "F",
     "parity": -1,
-    "colour": "blue"
+    "colour": "blue",
+    "colour_secondary": "yellow"
   }
 ]

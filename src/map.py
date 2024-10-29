@@ -27,7 +27,7 @@ class Map:
         draw = ImageDraw.Draw(self.image)  # created object for image
         anchor_point = centroid(Polygon(self.get_line_vertices(battue)))
         anchor_point = np.array([anchor_point.x, anchor_point.y])
-        fnt = ImageFont.truetype(paths["font"], 30)
+        fnt = ImageFont.truetype(paths["font"], 20)
         y_offset = 20
         padding = 5
 
@@ -44,16 +44,18 @@ class Map:
             point = self.adjust_poste_point(point, battue.parity, line_vertices)
             point += poste.number_offset
             # point = np.array([xcor, ycor])
-            fnt = ImageFont.truetype(paths["font"], 15)
+            fnt = ImageFont.truetype(paths["font"], 13)
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=battue.colour, font=fnt)
 
     def draw_line(self, battue: Battue):
         draw = aggdraw.Draw(self.image)  # created object for image
         draw.setantialias(True)
-        pen = aggdraw.Pen(battue.colour, 3.0)
+        pen1 = aggdraw.Pen(battue.colour_secondary, 4.0)
+        pen2 = aggdraw.Pen(battue.colour, 2.0)
         poste_pixel_coordinate_list = self.get_line_vertices(battue, dup_first=True)
         poste_pixel_coordinate_list = flatten_tuple_array(poste_pixel_coordinate_list)
-        draw.line(poste_pixel_coordinate_list, pen)
+        draw.line(poste_pixel_coordinate_list, pen1)
+        draw.line(poste_pixel_coordinate_list, pen2)
         draw.flush()
         # draw.polygon(poste_pixel_coordinate_list, width=4, outline=battue.colour)
 

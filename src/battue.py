@@ -34,6 +34,7 @@ class Battue:
         self.postes: list(Poste) = []
         self.parity = battue_json["parity"]
         self.colour = battue_json["colour"]
+        self.colour_secondary = battue_json["colour_secondary"]
         postes_csv_file = open(paths["postes_csv"], newline='')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:
