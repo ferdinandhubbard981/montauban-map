@@ -24,7 +24,7 @@ def run_interactive_map(paths, draw_offsets=False):
         if key == 27:
             break
         if key == ord('r'):
-            load_map(paths)
+            load_map(paths, draw_offsets)
 
     cv2.destroyAllWindows()
 

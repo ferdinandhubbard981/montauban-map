@@ -3,6 +3,7 @@
     "name": "BEAU JARDIN",
     "label": "P",
     "parity": 1,
-    "colour": "red"
+    "colour": "red",
+    "colour_secondary": "white"
   }
 ]

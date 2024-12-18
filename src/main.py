@@ -6,9 +6,9 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", help="path to directory with all of the necessary files")
-    parser.add_argument("-i", action="store_true", help="path to directory with all of the necessary files")
-    parser.add_argument("--draw_offsets", action="store_true", help="path to directory with all of the necessary files")
+    parser.add_argument("--dir", required=True, help="path to directory with all of the necessary files")
+    parser.add_argument("-i", action="store_true", help="enables interactive mode")
+    parser.add_argument("--draw_offsets", action="store_true", help="enables the drawing of offset lines")
     args = parser.parse_args()
     paths = {}
     paths["font"] = "../fonts/alegreya/ttf/Alegreya-Bold.ttf"
