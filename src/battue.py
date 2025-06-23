@@ -35,6 +35,10 @@ class Battue:
         self.parity = battue_json["parity"]
         self.colour = battue_json["colour"]
         self.colour_secondary = battue_json["colour_secondary"]
+        if "dup_first" in battue_json:
+            self.dup_first = False if (battue_json["dup_first"] == "false") else True
+        else:
+            self.dup_first = True
         postes_csv_file = open(paths["postes_csv"], newline='')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:

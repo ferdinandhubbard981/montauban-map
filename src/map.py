@@ -50,11 +50,11 @@ class Map:
     def draw_line(self, battue: Battue):
         draw = aggdraw.Draw(self.image)  # created object for image
         draw.setantialias(True)
-        pen1 = aggdraw.Pen(battue.colour_secondary, 4.0)
-        pen2 = aggdraw.Pen(battue.colour, 2.0)
-        poste_pixel_coordinate_list = self.get_line_vertices(battue, dup_first=True)
+#        pen1 = aggdraw.Pen(battue.colour_secondary, 4.0)
+        pen2 = aggdraw.Pen(battue.colour, 1.0)
+        poste_pixel_coordinate_list = self.get_line_vertices(battue, dup_first=battue.dup_first)
         poste_pixel_coordinate_list = flatten_tuple_array(poste_pixel_coordinate_list)
-        draw.line(poste_pixel_coordinate_list, pen1)
+#        draw.line(poste_pixel_coordinate_list, pen1)
         draw.line(poste_pixel_coordinate_list, pen2)
         draw.flush()
         # draw.polygon(poste_pixel_coordinate_list, width=4, outline=battue.colour)
@@ -140,7 +140,7 @@ def parse_image_data(image_configuration_filename: str):
     return pixel_lambert_point_1, pixel_lambert_point_2
 
 
-def generate_map(paths, draw_offsets=False):
+def generate_map(paths, draw_offsets=False, draw_battue_names=True):
     map = Map(paths["map_image"], paths["gps_file"])
     print(f"x_pixel_delta: {map.x_pixel_delta}")
     print(f"y_pixel_delta: {map.y_pixel_delta}")
@@ -153,7 +153,8 @@ def generate_map(paths, draw_offsets=False):
         battues.append(battue)
         map.draw_line(battue)
         map.draw_postes(battue, paths)
-        map.draw_battue_name(battue, paths)
+        if draw_battue_names:
+            map.draw_battue_name(battue, paths)
         if draw_offsets:
             map.draw_line_offsets(battue)
         print(f"{battue.name} postes len: {len(battue.postes)}")

@@ -3,23 +3,23 @@
     "points": [
       {
         "gps": {
-          "longitude": 5.63798,
-          "latitude": 49.62268
+          "longitude": 5.2093022,
+          "latitude": 49.7501492
         },
         "image_coordinate": {
-          "x": 471,
-          "y": 787
+          "x": 1471,
+          "y": 238 
         }
       },
 
       {
         "gps": {
-          "longitude": 5.67908,
-          "latitude": 49.62434
+          "longitude": 5.1282199,
+          "latitude": 49.720164
         },
         "image_coordinate": {
-          "x": 1591,
-          "y": 698
+          "x": 209,
+          "y": 972
         }
       }
     ]

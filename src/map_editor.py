@@ -7,24 +7,24 @@ import csv
 selected_poste = None
 
 
-def load_map(paths, draw_offsets):
-    map_data, battues = generate_map(paths, draw_offsets=draw_offsets)
+def load_map(paths, draw_offsets, draw_battue_names):
+    map_data, battues = generate_map(paths, draw_offsets=draw_offsets, draw_battue_names=draw_battue_names)
     img = cv2.imread(paths["map_output"])
     cv2.imshow('window', img)
     params = (map_data, battues, paths)
     cv2.setMouseCallback('window', click_event, params)
 
 
-def run_interactive_map(paths, draw_offsets=False):
+def run_interactive_map(paths, draw_offsets=False, draw_battue_names=True):
     cv2.namedWindow("window", cv2.WINDOW_NORMAL)
     cv2.resizeWindow("window", 1920, 1080)
-    load_map(paths, draw_offsets)
+    load_map(paths, draw_offsets, draw_battue_names)
     while 1:
         key = cv2.waitKey(0)
         if key == 27:
             break
         if key == ord('r'):
-            load_map(paths, draw_offsets)
+            load_map(paths, draw_offsets, draw_battue_names)
 
     cv2.destroyAllWindows()
 
