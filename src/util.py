@@ -62,6 +62,7 @@ class Line:
 
     def normalise(self):
         scale = np.sqrt(np.sum(np.square(self.d_vector)))
+        print(scale)
         d_vector = self.d_vector / scale
         self.d_vector = d_vector
 

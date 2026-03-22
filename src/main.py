@@ -11,7 +11,7 @@ def main():
     parser.add_argument("--draw_offsets", action="store_true", help="enables the drawing of offset lines")
     args = parser.parse_args()
     paths = {}
-    paths["font"] = "../fonts/alegreya/ttf/Alegreya-Bold.ttf"
+    paths["font"] = "../fonts/alegreya/ttf/Alegreya-Black.ttf"
     paths["map_image"] = "base_map.png"
     paths["map_output"] = "new_map.png"
     paths["postes_csv"] = "postes.csv"

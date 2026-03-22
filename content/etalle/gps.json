@@ -7,19 +7,19 @@
           "latitude": 49.65467
         },
         "image_coordinate": {
-          "x": 312,
-          "y": 265
+          "x": 650,
+          "y": 753
         }
       },
 
       {
         "gps": {
-          "longitude": 5.65173,
-          "latitude": 49.65191
+          "longitude": 5.63797,
+          "latitude": 49.62268
         },
         "image_coordinate": {
-          "x": 1330,
-          "y": 313
+          "x": 3491,
+          "y": 3375
         }
       }
     ]
