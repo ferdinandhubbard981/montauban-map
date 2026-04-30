@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Faîté",
+    "label": "F",
+    "parity": 1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Burzais",
+    "label": "B",
+    "parity": 1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Long Chenois",
+    "label": "L",
+    "parity": -1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Arzi",
+    "label": "A",
+    "parity": -1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Barcacelle",
+    "label": "R",
+    "parity": 1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Boulois",
+    "label": "O",
+    "parity": 1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Coquerains",
+    "label": "C",
+    "parity": 1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Poursumont",
+    "label": "P",
+    "parity": 1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Bochaban",
+    "label": "H",
+    "parity": -1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Grand Ourdon",
+    "label": "G",
+    "parity": -1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Mauleux",
+    "label": "M",
+    "parity": 1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Taille de Saules",
+    "label": "T",
+    "parity": 1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Melèze",
+    "label": "Z",
+    "parity": 1,
+    "colour": "red",
+    "colour_secondary": "white"
+  },
+  {
+    "name": "Saboterie",
+    "label": "S",
+    "parity": 1,
+    "colour": "blue",
+    "colour_secondary": "yellow"
+  },
+  {
+    "name": "Massinette",
+    "label": "N",
+    "parity": -1,
+    "colour": "red",
+    "colour_secondary": "white"
+  }
+]
