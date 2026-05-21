@@ -1,7 +1,9 @@
 from PIL import ImageFont, ImageDraw, Image
 import aggdraw
 import json
+import os
 from battue import Battue
+from generic_point import load_generic_points
 from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box
 import numpy as np
 from shapely import centroid, Polygon
@@ -72,6 +74,25 @@ class Map:
             line_coords = line_coords.flatten().tolist()
             draw.line(line_coords, pen)
         draw.flush()
+
+    def draw_generic_points(self, generic_points, paths):
+        """Draw generic GPS points as a white widget with red letters."""
+        if not generic_points:
+            return
+        draw = ImageDraw.Draw(self.image)
+        fnt = ImageFont.truetype(paths["font"], 16)
+        padding = 5
+        for gp in generic_points:
+            point = self.convert_lambert_to_pixel(gp.lambert_point)
+            left, top, right, bottom = draw.textbbox(
+                (point[0], point[1]), gp.name, font=fnt, anchor="mm", align="center"
+            )
+            text_box = [(left - padding, top - padding), (right + padding, bottom + padding)]
+            draw.rectangle(text_box, fill="white", outline="black", width=2)
+            draw.text(
+                (point[0], point[1]), gp.name, font=fnt, fill=gp.colour,
+                anchor="mm", align="center"
+            )
 
     def convert_lambert_to_pixel(self, lambert_point: LambertPoint):
         lambert_diff_y = lambert_point.y - self.top_left_pixel_lambert_point.y
@@ -144,18 +165,24 @@ def generate_map(paths, draw_offsets=False):
     map = Map(paths["map_image"], paths["gps_file"])
     print(f"x_pixel_delta: {map.x_pixel_delta}")
     print(f"y_pixel_delta: {map.y_pixel_delta}")
-    file = open(paths["battues"], "r")
-    json_content = json.load(file)
-    file.close()
     battues = []
-    for battue_json in json_content:
-        battue = Battue(battue_json, paths)
-        battues.append(battue)
-        map.draw_line(battue)
-        map.draw_postes(battue, paths)
-        map.draw_battue_name(battue, paths)
-        if draw_offsets:
-            map.draw_line_offsets(battue)
-        print(f"{battue.name} postes len: {len(battue.postes)}")
+    if os.path.isfile(paths["battues"]) and os.path.isfile(paths["postes_csv"]):
+        with open(paths["battues"], "r") as file:
+            json_content = json.load(file)
+        for battue_json in json_content:
+            battue = Battue(battue_json, paths)
+            battues.append(battue)
+            map.draw_line(battue)
+            map.draw_postes(battue, paths)
+            map.draw_battue_name(battue, paths)
+            if draw_offsets:
+                map.draw_line_offsets(battue)
+            print(f"{battue.name} postes len: {len(battue.postes)}")
+    else:
+        print("battues.json or postes.csv missing, skipping battue drawing")
+    generic_points = load_generic_points(paths.get("generic_csv"))
+    if generic_points:
+        map.draw_generic_points(generic_points, paths)
+        print(f"generic points drawn: {len(generic_points)}")
     map.image.save(paths["map_output"])
     return map, battues

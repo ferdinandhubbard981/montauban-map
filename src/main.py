@@ -17,6 +17,7 @@ def main():
     paths["postes_csv"] = "postes.csv"
     paths["gps_file"] = "gps.json"
     paths["battues"] = "battues.json"
+    paths["generic_csv"] = "generic.csv"
     for key, val in paths.items():
         paths[key] = os.path.join(args.dir, val)
 
