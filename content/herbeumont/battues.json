@@ -74,34 +74,39 @@
     "label": "M",
     "parity": 1,
     "colour": "crimson",
-    "colour_secondary": "crimson"
+    "colour_secondary": "crimson",
+    "affut": true
   },
   {
     "name": "Taille de Saules",
     "label": "T",
     "parity": 1,
     "colour": "darkcyan",
-    "colour_secondary": "darkcyan"
+    "colour_secondary": "darkcyan",
+    "affut": true
   },
   {
     "name": "Melèze",
     "label": "Z",
     "parity": 1,
     "colour": "darkslateblue",
-    "colour_secondary": "darkslateblue"
+    "colour_secondary": "darkslateblue",
+    "affut": true
   },
   {
     "name": "Saboterie",
     "label": "S",
     "parity": 1,
     "colour": "darkred",
-    "colour_secondary": "darkred"
+    "colour_secondary": "darkred",
+    "affut": true
   },
   {
     "name": "Massinette",
     "label": "N",
     "parity": -1,
     "colour": "steelblue",
-    "colour_secondary": "steelblue"
+    "colour_secondary": "steelblue",
+    "affut": true
   }
 ]

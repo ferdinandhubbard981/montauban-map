@@ -175,7 +175,8 @@ def generate_map(paths, draw_offsets=False):
         for battue_json in json_content:
             battue = Battue(battue_json, paths)
             battues.append(battue)
-            map.draw_line(battue)
+            if not battue.affut:
+                map.draw_line(battue)
             map.draw_postes(battue, paths)
             map.draw_battue_name(battue, paths)
             if draw_offsets:
