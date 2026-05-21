@@ -24,8 +24,8 @@
     "name": "Arzi",
     "label": "A",
     "parity": -1,
-    "colour": "khaki",
-    "colour_secondary": "khaki"
+    "colour": "darkolivegreen",
+    "colour_secondary": "darkolivegreen"
   },
   {
     "name": "Barcacelle",
@@ -38,8 +38,8 @@
     "name": "Boulois",
     "label": "O",
     "parity": 1,
-    "colour": "pink",
-    "colour_secondary": "pink"
+    "colour": "brown",
+    "colour_secondary": "brown"
   },
   {
     "name": "Coquerains",
@@ -80,15 +80,15 @@
     "name": "Taille de Saules",
     "label": "T",
     "parity": 1,
-    "colour": "cyan",
-    "colour_secondary": "cyan"
+    "colour": "darkcyan",
+    "colour_secondary": "darkcyan"
   },
   {
     "name": "Melèze",
     "label": "Z",
     "parity": 1,
-    "colour": "palegreen",
-    "colour_secondary": "palegreen"
+    "colour": "darkslateblue",
+    "colour_secondary": "darkslateblue"
   },
   {
     "name": "Saboterie",

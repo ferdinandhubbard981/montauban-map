@@ -43,7 +43,8 @@ class Map:
         line_vertices = self.get_line_vertices(battue)
         for poste in battue.postes:
             point = self.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset
-            point = self.adjust_poste_point(point, battue.parity, line_vertices)
+            if not poste.skip_path:
+                point = self.adjust_poste_point(point, battue.parity, line_vertices)
             point += poste.number_offset
             # point = np.array([xcor, ycor])
             fnt = ImageFont.truetype(paths["font"], 13)
@@ -109,6 +110,8 @@ class Map:
     def get_line_vertices(self, battue: Battue, dup_first=False):
         poste_pixel_coordinate_list: [(int, int)] = []
         for poste in battue.postes:
+            if poste.skip_path:
+                continue
             poste_pixel_coordinate = self.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset
             poste_pixel_coordinate_list.append(poste_pixel_coordinate)
         if dup_first:

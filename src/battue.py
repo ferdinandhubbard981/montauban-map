@@ -23,6 +23,8 @@ class Poste:
         else:
             self.line_offset = np.array([0, 0])
 
+        self.skip_path = poste_csv.get("skip_path", "") == "1"
+
     def get_point_as_tuple(self):
         return (self.lambert_point.x, self.lambert_point.y)
 
