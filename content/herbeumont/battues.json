@@ -12,63 +12,73 @@
     "label": "B",
     "parity": 1,
     "colour": "blue",
-    "colour_secondary": "blue"
+    "colour_secondary": "blue",
+    "circled_postes": true
   },
   {
     "name": "Long Chenois",
     "label": "L",
     "parity": -1,
     "colour": "purple",
-    "colour_secondary": "purple"
+    "colour_secondary": "purple",
+    "circled_postes": true
   },
   {
     "name": "Arzi",
     "label": "A",
     "parity": -1,
     "colour": "darkolivegreen",
-    "colour_secondary": "darkolivegreen"
+    "colour_secondary": "darkolivegreen",
+    "circled_postes": true
   },
   {
     "name": "Barcacelle",
     "label": "R",
     "parity": 1,
     "colour": "green",
-    "colour_secondary": "green"
+    "colour_secondary": "green",
+    "circled_postes": true
   },
   {
     "name": "Boulois",
     "label": "O",
     "parity": 1,
     "colour": "brown",
-    "colour_secondary": "brown"
+    "colour_secondary": "brown",
+    "circled_postes": true
   },
   {
     "name": "Coquerains",
     "label": "C",
     "parity": 1,
     "colour": "orange",
-    "colour_secondary": "orange"
+    "colour_secondary": "orange",
+    "circled_postes": true
   },
   {
     "name": "Poursumont",
     "label": "P",
     "parity": 1,
     "colour": "black",
-    "colour_secondary": "black"
+    "colour_secondary": "black",
+    "circled_postes": true
   },
   {
     "name": "Bochaban",
     "label": "H",
     "parity": -1,
     "colour": "grey",
-    "colour_secondary": "grey"
+    "colour_secondary": "grey",
+    "circled_postes": true
   },
   {
     "name": "Grand Ourdon",
     "label": "G",
     "parity": -1,
     "colour": "turquoise",
-    "colour_secondary": "turquoise"
+    "colour_secondary": "turquoise",
+    "affut": true,
+    "circled_postes": true
   },
   {
     "name": "Mauleux",
@@ -85,7 +95,8 @@
     "parity": 1,
     "colour": "darkcyan",
     "colour_secondary": "darkcyan",
-    "affut": true
+    "affut": true,
+    "circled_postes": true
   },
   {
     "name": "Melèze",
@@ -93,7 +104,8 @@
     "parity": 1,
     "colour": "darkslateblue",
     "colour_secondary": "darkslateblue",
-    "affut": true
+    "affut": true,
+    "circled_postes": true
   },
   {
     "name": "Saboterie",
@@ -101,7 +113,8 @@
     "parity": 1,
     "colour": "darkred",
     "colour_secondary": "darkred",
-    "affut": true
+    "affut": true,
+    "circled_postes": true
   },
   {
     "name": "Massinette",
@@ -109,6 +122,7 @@
     "parity": -1,
     "colour": "steelblue",
     "colour_secondary": "steelblue",
-    "affut": true
+    "affut": true,
+    "circled_postes": true
   }
 ]

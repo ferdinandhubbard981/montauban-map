@@ -10,8 +10,7 @@ from shapely import centroid, Polygon
 
 poste_distance_from_line = 10
 poste_font_size = 11
-circle_radius_multiplier = 0.6  # radius = poste_font_size * circle_radius_multiplier
-
+circle_radius_multiplier = 0.7  # radius = poste_font_size * circle_radius_multiplier
 
 class ImageCoordinate:
     def __init__(self, x, y):
@@ -60,7 +59,7 @@ class Map:
         for poste in battue.postes:
             raw_point = self.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset
             point = raw_point.copy()
-            if not poste.skip_path:
+            if not poste.skip_path and not battue.affut:
                 point = self.adjust_poste_point(point, battue.parity, line_vertices)
             point = point + poste.number_offset
             # Line from the raw GPS point to the circle centre
