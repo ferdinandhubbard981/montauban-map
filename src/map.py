@@ -6,11 +6,11 @@ from battue import Battue
 from generic_point import load_generic_points
 from util import LambertPoint, get_lines_from_vertices, Line, point_within_bounds, flatten_tuple_array, draw_text_in_a_box
 import numpy as np
-from shapely import centroid, Polygon
 
 poste_distance_from_line = 10
 poste_font_size = 11
 circle_radius_multiplier = 0.7  # radius = poste_font_size * circle_radius_multiplier
+battue_name_label_spacing = 10  # vertical distance in pixels between the name and label
 
 class ImageCoordinate:
     def __init__(self, x, y):
@@ -28,15 +28,14 @@ class Map:
 
     def draw_battue_name(self, battue: Battue, paths):
         draw = ImageDraw.Draw(self.image)  # created object for image
-        anchor_point = centroid(Polygon(self.get_line_vertices(battue)))
-        anchor_point = np.array([anchor_point.x, anchor_point.y])
+        vertices = self.get_line_vertices(battue)
+        anchor_point = np.mean(vertices, axis=0) + battue.name_offset
         fnt = ImageFont.truetype(paths["font"], 20)
-        y_offset = 20
         padding = 5
 
-        draw_text_in_a_box(draw, battue.name, battue.colour, anchor_point, fnt, y_offset, padding)
+        draw_text_in_a_box(draw, battue.name, battue.colour, anchor_point, fnt, battue_name_label_spacing, padding)
 
-        draw_text_in_a_box(draw, battue.label, battue.colour, anchor_point, fnt, -y_offset, padding)
+        draw_text_in_a_box(draw, battue.label, battue.colour, anchor_point, fnt, -battue_name_label_spacing, padding)
 
     def draw_postes(self, battue: Battue, paths):
         draw = ImageDraw.Draw(self.image)  # created object for image
@@ -198,13 +197,13 @@ def generate_map(paths, draw_offsets=False):
         for battue_json in json_content:
             battue = Battue(battue_json, paths)
             battues.append(battue)
+            map.draw_battue_name(battue, paths)
             if not battue.affut:
                 map.draw_line(battue)
             if battue.circled_postes:
                 map.draw_circled_postes(battue, paths)
             else:
                 map.draw_postes(battue, paths)
-            map.draw_battue_name(battue, paths)
             if draw_offsets:
                 map.draw_line_offsets(battue)
             print(f"{battue.name} postes len: {len(battue.postes)}")

@@ -39,6 +39,9 @@ class Battue:
         self.colour_secondary = battue_json["colour_secondary"]
         self.affut: bool = battue_json.get("affut", False)
         self.circled_postes: bool = battue_json.get("circled_postes", False)
+        name_offset_x = battue_json.get("name_offset_x", 0)
+        name_offset_y = battue_json.get("name_offset_y", 0)
+        self.name_offset: np.ndarray = np.array([name_offset_x, name_offset_y])
         postes_csv_file = open(paths["postes_csv"], newline='', encoding='utf-8')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:
