@@ -38,7 +38,7 @@ class Battue:
         self.colour = battue_json["colour"]
         self.colour_secondary = battue_json["colour_secondary"]
         self.affut: bool = battue_json.get("affut", False)
-        postes_csv_file = open(paths["postes_csv"], newline='')
+        postes_csv_file = open(paths["postes_csv"], newline='', encoding='utf-8')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:
             if row["battue"] == self.name:

@@ -153,10 +153,8 @@ class Map:
 
 
 def parse_image_data(image_configuration_filename: str):
-    # with open(image_configuration_filename, "r") as image_configuration_file:
-    image_configuration_file = open(image_configuration_filename, "r")
-    image_conf = json.load(image_configuration_file)
-    image_configuration_file.close()
+    with open(image_configuration_filename, "r", encoding="utf-8-sig") as image_configuration_file:
+        image_conf = json.load(image_configuration_file)
     point1_json = image_conf["map"]["points"][0]
     pixel_lambert_point_1: (ImageCoordinate, LambertPoint) = (ImageCoordinate(point1_json["image_coordinate"]["x"], point1_json["image_coordinate"]["y"]), LambertPoint.from_gps(point1_json["gps"]["longitude"], point1_json["gps"]["latitude"]))
     point2_json = image_conf["map"]["points"][1]
@@ -170,7 +168,7 @@ def generate_map(paths, draw_offsets=False):
     print(f"y_pixel_delta: {map.y_pixel_delta}")
     battues = []
     if os.path.isfile(paths["battues"]) and os.path.isfile(paths["postes_csv"]):
-        with open(paths["battues"], "r") as file:
+        with open(paths["battues"], "r", encoding="utf-8-sig") as file:
             json_content = json.load(file)
         for battue_json in json_content:
             battue = Battue(battue_json, paths)

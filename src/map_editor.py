@@ -70,7 +70,7 @@ def move_poste(map_data, x, y, paths):
     print(f"moving {selected_poste.battue_name} {selected_poste.number} by ({pixel_offset[0]}, {pixel_offset[1]}) pixels")
     # find entry for that poste
     rows = []
-    with open(paths["postes_csv"], 'r') as csvfile:
+    with open(paths["postes_csv"], 'r', encoding='utf-8', newline='') as csvfile:
         data_reader = csv.DictReader(csvfile, delimiter=';')
         rows.append(data_reader.fieldnames)
         for row in data_reader:
@@ -79,7 +79,7 @@ def move_poste(map_data, x, y, paths):
                 row["line_offset_y"] = str(parse_optional_int_to_str(row["line_offset_y"]) + pixel_offset[1])
             rows.append(list(row.values()))
 
-    with open(paths["postes_csv"], 'w') as csvfile:
+    with open(paths["postes_csv"], 'w', encoding='utf-8', newline='') as csvfile:
         data_writer = csv.writer(csvfile, delimiter=';')
         data_writer.writerows(rows)
 
@@ -93,7 +93,7 @@ def create_poste(map_data, x, y, paths):
     lambert_point = map_data.convert_pixel_to_lambert(x, y)
     longitude, latitude = lambert_point.to_gps()
     row = ["new", "?", latitude, longitude]
-    with open(paths["postes_csv"], 'a') as csvfile:
+    with open(paths["postes_csv"], 'a', encoding='utf-8', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=';')
         writer.writerow(row)
     print(f"created poste at ({x}, {y})")

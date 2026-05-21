@@ -18,7 +18,7 @@ def load_generic_points(csv_path: str):
     if not csv_path or not os.path.isfile(csv_path):
         return []
     points = []
-    with open(csv_path, newline='') as f:
+    with open(csv_path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter=';')
         for row in reader:
             if not row.get("name") or not row.get("latitude") or not row.get("longitude"):
