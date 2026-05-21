@@ -9,6 +9,8 @@ import numpy as np
 from shapely import centroid, Polygon
 
 poste_distance_from_line = 10
+poste_font_size = 11
+circle_radius_multiplier = 0.6  # radius = poste_font_size * circle_radius_multiplier
 
 
 class ImageCoordinate:
@@ -47,8 +49,32 @@ class Map:
                 point = self.adjust_poste_point(point, battue.parity, line_vertices)
             point += poste.number_offset
             # point = np.array([xcor, ycor])
-            fnt = ImageFont.truetype(paths["font"], 13)
+            fnt = ImageFont.truetype(paths["font"], poste_font_size)
             draw.text((point[0], point[1]), poste.number, anchor="mm", fill=battue.colour, font=fnt)
+
+    def draw_circled_postes(self, battue: Battue, paths):
+        draw = ImageDraw.Draw(self.image)
+        fnt = ImageFont.truetype(paths["font"], poste_font_size)
+        radius = int(poste_font_size * circle_radius_multiplier)
+        line_vertices = self.get_line_vertices(battue)
+        for poste in battue.postes:
+            raw_point = self.convert_lambert_to_pixel(poste.lambert_point) + poste.line_offset
+            point = raw_point.copy()
+            if not poste.skip_path:
+                point = self.adjust_poste_point(point, battue.parity, line_vertices)
+            point = point + poste.number_offset
+            # Line from the raw GPS point to the circle centre
+            draw.line([(raw_point[0], raw_point[1]), (point[0], point[1])], fill=battue.colour, width=2)
+            # White-filled circle with primary colour outline
+            bbox = [point[0] - radius, point[1] - radius, point[0] + radius, point[1] + radius]
+            draw.ellipse(bbox, fill="white", outline=battue.colour, width=2)
+            # Black number text — compute precise top-left so text bbox center == circle center
+            tb = draw.textbbox((0, 0), poste.number, font=fnt)
+            text_w = tb[2] - tb[0]
+            text_h = tb[3] - tb[1]
+            text_x = point[0] - text_w / 2 - tb[0]
+            text_y = point[1] - text_h / 2 - tb[1]
+            draw.text((text_x, text_y), poste.number, fill="black", font=fnt)
 
     def draw_line(self, battue: Battue):
         draw = aggdraw.Draw(self.image)  # created object for image
@@ -175,7 +201,10 @@ def generate_map(paths, draw_offsets=False):
             battues.append(battue)
             if not battue.affut:
                 map.draw_line(battue)
-            map.draw_postes(battue, paths)
+            if battue.circled_postes:
+                map.draw_circled_postes(battue, paths)
+            else:
+                map.draw_postes(battue, paths)
             map.draw_battue_name(battue, paths)
             if draw_offsets:
                 map.draw_line_offsets(battue)

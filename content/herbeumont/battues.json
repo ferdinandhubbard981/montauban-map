@@ -4,7 +4,8 @@
     "label": "F",
     "parity": 1,
     "colour": "red",
-    "colour_secondary": "red"
+    "colour_secondary": "red",
+    "circled_postes": true
   },
   {
     "name": "Burzais",
@@ -75,7 +76,8 @@
     "parity": 1,
     "colour": "crimson",
     "colour_secondary": "crimson",
-    "affut": true
+    "affut": true,
+    "circled_postes": true
   },
   {
     "name": "Taille de Saules",

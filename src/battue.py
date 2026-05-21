@@ -33,11 +33,12 @@ class Battue:
     def __init__(self, battue_json: str, paths):
         self.name: str = battue_json["name"]
         self.label: str = battue_json["label"]
-        self.postes: list(Poste) = []
+        self.postes: list[Poste] = []
         self.parity = battue_json["parity"]
         self.colour = battue_json["colour"]
         self.colour_secondary = battue_json["colour_secondary"]
         self.affut: bool = battue_json.get("affut", False)
+        self.circled_postes: bool = battue_json.get("circled_postes", False)
         postes_csv_file = open(paths["postes_csv"], newline='', encoding='utf-8')
         postes_csv_reader = csv.DictReader(postes_csv_file, delimiter=';')
         for row in postes_csv_reader:
