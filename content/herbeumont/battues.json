@@ -4,104 +4,104 @@
     "label": "F",
     "parity": 1,
     "colour": "red",
-    "colour_secondary": "white"
+    "colour_secondary": "red"
   },
   {
     "name": "Burzais",
     "label": "B",
     "parity": 1,
     "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour_secondary": "blue"
   },
   {
     "name": "Long Chenois",
     "label": "L",
     "parity": -1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "purple",
+    "colour_secondary": "purple"
   },
   {
     "name": "Arzi",
     "label": "A",
     "parity": -1,
-    "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour": "khaki",
+    "colour_secondary": "khaki"
   },
   {
     "name": "Barcacelle",
     "label": "R",
     "parity": 1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "green",
+    "colour_secondary": "green"
   },
   {
     "name": "Boulois",
     "label": "O",
     "parity": 1,
-    "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour": "pink",
+    "colour_secondary": "pink"
   },
   {
     "name": "Coquerains",
     "label": "C",
     "parity": 1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "orange",
+    "colour_secondary": "orange"
   },
   {
     "name": "Poursumont",
     "label": "P",
     "parity": 1,
-    "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour": "black",
+    "colour_secondary": "black"
   },
   {
     "name": "Bochaban",
     "label": "H",
     "parity": -1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "grey",
+    "colour_secondary": "grey"
   },
   {
     "name": "Grand Ourdon",
     "label": "G",
     "parity": -1,
-    "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour": "turquoise",
+    "colour_secondary": "turquoise"
   },
   {
     "name": "Mauleux",
     "label": "M",
     "parity": 1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "crimson",
+    "colour_secondary": "crimson"
   },
   {
     "name": "Taille de Saules",
     "label": "T",
     "parity": 1,
-    "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour": "cyan",
+    "colour_secondary": "cyan"
   },
   {
     "name": "Melèze",
     "label": "Z",
     "parity": 1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "palegreen",
+    "colour_secondary": "palegreen"
   },
   {
     "name": "Saboterie",
     "label": "S",
     "parity": 1,
-    "colour": "blue",
-    "colour_secondary": "yellow"
+    "colour": "darkred",
+    "colour_secondary": "darkred"
   },
   {
     "name": "Massinette",
     "label": "N",
     "parity": -1,
-    "colour": "red",
-    "colour_secondary": "white"
+    "colour": "steelblue",
+    "colour_secondary": "steelblue"
   }
 ]
